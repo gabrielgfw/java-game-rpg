@@ -1,9 +1,13 @@
 package com.gabrielgfw.main;
 
+import com.gabrielgfw.entities.Entity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends Canvas implements Runnable {
 
@@ -16,11 +20,18 @@ public class Game extends Canvas implements Runnable {
     private final int HEIGHT = 160;
     private final int SCALE = 5;
 
+    public List<Entity> entities;
+
 
     public Game() {
+
+        // # Window Resolution:
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         initFrame();
+
+        // # Objects Initializer:
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        entities = new ArrayList<Entity>();
     }
 
     public void initFrame() {
@@ -56,6 +67,11 @@ public class Game extends Canvas implements Runnable {
 
     public void tick() {
 
+        // # Calling the logic (tick) for all entities:
+        for(int i = 0; i < entities.size(); i++) {
+            Entity e = entities.get(i);
+            e.tick();
+        }
     }
 
     public void render() {
@@ -71,6 +87,12 @@ public class Game extends Canvas implements Runnable {
         Graphics g = image.getGraphics();
         g.setColor(new Color(0, 0, 0));
         g.fillRect(0, 0, WIDTH, HEIGHT);
+
+        // # Rendering all entities:
+        for(int i = 0; i < entities.size(); i++) {
+            Entity e = entities.get(i);
+            e.render(g);
+        }
 
         // # Player render;
         Graphics2D g2 = (Graphics2D) g;

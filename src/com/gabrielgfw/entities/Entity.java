@@ -20,6 +20,8 @@ public class Entity {
         this.sprite = sprite;
     }
 
+
+
     public int getX() {
         return this.x;
     }
@@ -34,6 +36,10 @@ public class Entity {
 
     public int getHeight() {
         return this.height;
+    }
+
+    public void tick() {
+
     }
 
     public void render(Graphics g) {
