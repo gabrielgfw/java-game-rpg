@@ -1,6 +1,8 @@
 package com.gabrielgfw.main;
 
 import com.gabrielgfw.entities.Entity;
+import com.gabrielgfw.entities.Player;
+import com.gabrielgfw.graphics.Spritesheet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +23,7 @@ public class Game extends Canvas implements Runnable {
     private final int SCALE = 5;
 
     public List<Entity> entities;
+    public Spritesheet spritesheet;
 
 
     public Game() {
@@ -32,6 +35,11 @@ public class Game extends Canvas implements Runnable {
         // # Objects Initializer:
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         entities = new ArrayList<Entity>();
+        spritesheet = new Spritesheet("/spritesheet.png");
+
+        // # Creating Player;
+        Player player = new Player(0, 0 , 16, 16, spritesheet.getSprite(0, 0, 16, 16));
+        entities.add(player);
     }
 
     public void initFrame() {
