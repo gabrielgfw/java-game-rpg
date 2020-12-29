@@ -1,5 +1,7 @@
 package com.gabrielgfw.world;
 
+import com.gabrielgfw.main.Game;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -30,27 +32,39 @@ public class World {
             // '0xFF' + 'hexCode'
             for(int xx = 0; xx < map.getWidth(); xx++) {
                 for(int yy = 0; yy < map.getHeight(); yy++) {
-                    int currentPixel = pixels[xx + (yy * map.getWidth())];
 
-                    // # Black Color (Grass Tile):
+                    int currentPixel = pixels[xx + (yy * map.getWidth())];
+                    tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_GRASS);
+
+                    // # Tile-Grass:
                     if(currentPixel == 0xFF010101) {
                         tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_GRASS);
 
-                    // # White Color (Stone Wall):
+                    // # Tile-Wall:
                     } else if(currentPixel == 0xFFffffff) {
                         tiles[xx + (yy * WIDTH)] = new WallTile(xx * 16, yy * 16, Tile.TILE_WALL);
 
-                    // # Player Spawn Location:
+                    // # Entity-Player:
                     } else if(currentPixel == 0xFF0000ff) {
-                        tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_GRASS);
+                        Game.player.setX(xx * 16);
+                        Game.player.setY(yy * 16);
 
-                    } else {
-                        tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_GRASS);
+                    // # Entity-Enemy:
+                    } else if(currentPixel == 0xFFff0000) {
+
+
+                    // # Item-Apple:
+                    } else if(currentPixel == 0xFF00ff00) {
+
+
+                    // # Item-Fire-Gem:
+                    } else if(currentPixel == 0xFFff00ff) {
 
                     }
+
+
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,5 +78,4 @@ public class World {
             }
         }
     }
-
 }

@@ -1,9 +1,15 @@
 package com.gabrielgfw.entities;
 
+import com.gabrielgfw.main.Game;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
+
+    public static BufferedImage ITEM_APPLE_EN = Game.spritesheet.getSprite(112, 0, 16, 16);
+    public static BufferedImage ITEM_FIRE_GEM_EN = Game.spritesheet.getSprite(128, 0, 16, 16);
+
 
     protected double x;
     protected double y;
@@ -36,6 +42,14 @@ public class Entity {
 
     public int getHeight() {
         return this.height;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public void tick() {
