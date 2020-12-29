@@ -103,10 +103,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
             return;
         }
 
-        // # Graphics render;
+        // # Graphics render:
         Graphics g = image.getGraphics();
-        g.setColor(new Color(25, 130, 25));
+        g.setColor(new Color(0, 0, 0));
         g.fillRect(0, 0, WIDTH, HEIGHT);
+
+        // # World render:
+        world.render(g);
 
         // # Rendering all entities:
         for(int i = 0; i < entities.size(); i++) {
