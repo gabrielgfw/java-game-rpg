@@ -69,16 +69,16 @@ public class Game extends Canvas implements Runnable {
 
         // # Graphics render;
         Graphics g = image.getGraphics();
-        g.setColor(new Color(19, 19, 19));
+        g.setColor(new Color(0, 0, 0));
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         // # Player render;
         Graphics2D g2 = (Graphics2D) g;
 
         // # Darkness Overlay;
-        //g2.rotate(Math.toRadians(-45), 90+8, 90+8);
-        //g2.setColor(new Color(0,0,0,100));
-        //g2.fillRect(0, 0, WIDTH, HEIGHT);
+        // g2.rotate(Math.toRadians(-45), 90+8, 90+8);
+        // g2.setColor(new Color(0,0,0,100));
+        // g2.fillRect(0, 0, WIDTH, HEIGHT);
 
         g.dispose();
         g = bs.getDrawGraphics();
