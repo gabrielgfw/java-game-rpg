@@ -7,6 +7,9 @@ import java.io.IOException;
 
 public class World {
 
+    private Tile[] tiles;
+    public static int WIDTH, HEIGHT;
+
     public World(String path) {
 
         // # Mapping pixels from map.png:
@@ -17,6 +20,9 @@ public class World {
 
             // # Copying every pixel from the map to the array of pixels:
             int[] pixels = new int[map.getWidth() * map.getHeight()];
+            WIDTH = map.getWidth();
+            HEIGHT = map.getHeight();
+            tiles = new Tile[map.getWidth() * map.getHeight()];
             map.getRGB(0, 0, map.getWidth(), map.getHeight(), pixels, 0, map.getWidth());
 
             // # Colour Hex:
@@ -28,9 +34,18 @@ public class World {
 
                     // # Black Color (Grass Tile):
                     if(currentPixel == 0xFF010101) {
+                        tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_GRASS);
 
                     // # White Color (Stone Wall):
                     } else if(currentPixel == 0xFFffffff) {
+                        tiles[xx + (yy * WIDTH)] = new WallTile(xx * 16, yy * 16, Tile.TILE_WALL);
+
+                    // # Player Spawn Location:
+                    } else if(currentPixel == 0xFF0000ff) {
+                        tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_GRASS);
+
+                    } else {
+                        tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_GRASS);
 
                     }
                 }
@@ -42,7 +57,12 @@ public class World {
     }
 
     public void render(Graphics g) {
-
+        for(int xx = 0; xx < WIDTH; xx++) {
+            for(int yy = 0; yy < HEIGHT; yy++) {
+                Tile tile = tiles[xx + (yy * WIDTH)];
+                tile.render(g);
+            }
+        }
     }
 
 }
