@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
 
+    // # Movement variables:
     public boolean right, up, left, down;
     public int dir = 0;
     public int rightDir = 0;
@@ -15,7 +16,13 @@ public class Player extends Entity {
     public int downDir = 3;
     public double speed = 1;
 
-    private int frames = 0;
+    // # Sprites animation variables:
+    private int framesSprite = 0;
+    private int maxFramesSprite = 8;
+    private int indexSprite;
+    private int maxIndexSprite = 2;
+    private boolean moved;
+
     private BufferedImage[] rightPlayer;
     private BufferedImage[] leftPlayer;
     private BufferedImage[] upPlayer;
@@ -40,35 +47,82 @@ public class Player extends Entity {
     }
 
     public void tick() {
+        moved = false;
+
+        // # Player's Movement:
         if(right) {
+            moved = true;
             dir = rightDir;
             x += speed;
+
         } else if(left) {
+            moved = true;
             dir = leftDir;
             x -= speed;
         }
 
         if(up) {
+            moved = true;
             dir = upDir;
             y -= speed;
+
         } else if(down) {
+            moved = true;
             dir = downDir;
             y += speed;
+        }
+
+        // # Animation Sprite Cycle:
+        if(moved) {
+            framesSprite++;
+            if(framesSprite == maxFramesSprite) {
+                framesSprite = 0;
+                indexSprite++;
+                if(indexSprite > maxIndexSprite) {
+                    indexSprite = 0;
+                }
+            }
         }
     }
 
     public void render(Graphics g) {
-        if(dir == rightDir) {
-            g.drawImage(rightPlayer[0], this.getX(), this.getY(), null);
-        } else if(dir == leftDir) {
-            g.drawImage(leftPlayer[0], this.getX(), this.getY(), null);
+
+        // # Idle checking:
+        if(!moved) {
+            if(dir == rightDir) {
+                g.drawImage(rightPlayer[0], this.getX(), this.getY(), null);
+            }
+            if(dir == leftDir) {
+                g.drawImage(leftPlayer[0], this.getX(), this.getY(), null);
+            }
+            if(dir == upDir) {
+                g.drawImage(upPlayer[0], this.getX(), this.getY(), null);
+            }
+            if(dir == downDir) {
+                g.drawImage(downPlayer[0], this.getX(), this.getY(), null);
+            }
+
+        } else {
+            // # Right Animation Sprites:
+            if (dir == rightDir) {
+                g.drawImage(rightPlayer[indexSprite], this.getX(), this.getY(), null);
+
+                // # Left Animation Sprites:
+            } else if (dir == leftDir) {
+                g.drawImage(leftPlayer[indexSprite], this.getX(), this.getY(), null);
+            }
+
+            // # Up Animation Sprites:
+            if (dir == upDir) {
+                g.drawImage(upPlayer[indexSprite], this.getX(), this.getY(), null);
+
+                // # Left Animation Sprites:
+            } else if (dir == downDir) {
+                g.drawImage(downPlayer[indexSprite], this.getX(), this.getY(), null);
+            }
         }
 
-        if(dir == upDir) {
-            g.drawImage(upPlayer[0], this.getX(), this.getY(), null);
-        } else if(dir == downDir) {
-            g.drawImage(downPlayer[0], this.getX(), this.getY(), null);
-        }
+
 
     }
 }
