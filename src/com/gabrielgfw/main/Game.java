@@ -3,6 +3,7 @@ package com.gabrielgfw.main;
 import com.gabrielgfw.entities.Entity;
 import com.gabrielgfw.entities.Player;
 import com.gabrielgfw.graphics.Spritesheet;
+import com.gabrielgfw.world.World;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +28,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public List<Entity> entities;
     public static Spritesheet spritesheet;
 
+    public static World world;
+
     private Player player;
 
 
@@ -39,6 +42,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         initFrame();
 
         // # Objects Initializer:
+        world = new World("/map.png");
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         entities = new ArrayList<Entity>();
         spritesheet = new Spritesheet("/spritesheet.png");
